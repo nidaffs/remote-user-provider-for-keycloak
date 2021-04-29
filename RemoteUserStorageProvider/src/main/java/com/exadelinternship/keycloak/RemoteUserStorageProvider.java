@@ -9,13 +9,15 @@ import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.credential.PasswordCredentialModel;
+import org.keycloak.models.utils.DefaultRoles;
+import org.keycloak.models.utils.KeycloakModelUtils;
+import org.keycloak.models.utils.UserModelDelegate;
 import org.keycloak.storage.UserStorageProvider;
 import org.keycloak.storage.adapter.AbstractUserAdapter;
+import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 import org.keycloak.storage.user.UserLookupProvider;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RemoteUserStorageProvider implements UserStorageProvider,
@@ -68,8 +70,8 @@ public class RemoteUserStorageProvider implements UserStorageProvider,
         if (administratorDto != null) {
             returnValue = createUserModel(login, realmModel);
         }
-
         return returnValue;
+
     }
 
     @Override
@@ -78,19 +80,32 @@ public class RemoteUserStorageProvider implements UserStorageProvider,
     }
 
     private UserModel createUserModel(String login, RealmModel realmModel) {
+
         return new AbstractUserAdapter(keycloakSession, realmModel, componentModel) {
+
+            @Override
+            public Set<RoleModel> getRoleMappings() {
+                Set<RoleModel> rolesToAssign = new HashSet<>();
+                if (appendDefaultRolesToRoleMappings()) {
+                    rolesToAssign.addAll(DefaultRoles.getDefaultRoles(realmModel).collect(Collectors.toSet()));
+                }
+                rolesToAssign.addAll(getRoleMappingsInternal());
+
+                rolesToAssign.add(realmModel.getRole(userService.getAdmin(login).getRole().toString()));
+
+                return rolesToAssign;
+            }
+
             @Override
             public String getUsername() {
                 return login;
             }
 
             @Override
-            public Set<RoleModel> getRoleMappings() {
-                Set<RoleModel> set = new HashSet<>();
-                RoleModel role = realmModel.getRole(userService.getAdmin(login).getRole().toString());
-                set.add(role);
-                return set;
+            public String getEmail() {
+                return userService.getAdmin(login).getEmail();
             }
+
         };
     }
 

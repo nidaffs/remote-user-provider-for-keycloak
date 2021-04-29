@@ -1,5 +1,7 @@
 package com.exadelinternship.keycloak;
 
+import java.util.Set;
+
 public class AdministratorDto {
     private Long id;
     private String login;

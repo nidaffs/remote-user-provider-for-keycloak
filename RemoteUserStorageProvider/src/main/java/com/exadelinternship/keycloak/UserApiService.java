@@ -16,5 +16,4 @@ public interface UserApiService {
     @Path("/{login}")
     boolean verifyAdministratorPassword(@PathParam("login") String login, String password);
 
-
 }
