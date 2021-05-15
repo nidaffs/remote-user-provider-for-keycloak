@@ -9,11 +9,12 @@ import org.keycloak.storage.UserStorageProviderFactory;
 
 public class RemoteUserStorageProviderFactory implements UserStorageProviderFactory<RemoteUserStorageProvider> {
 
-    public static final String PROVIDER_NAME = "remote-admin-storage-provider";
+    public static final String PROVIDER_NAME = "username-90";
 
     @Override
     public RemoteUserStorageProvider create(KeycloakSession keycloakSession, ComponentModel componentModel) {
-        return new RemoteUserStorageProvider(keycloakSession, componentModel, buildHttpClient("http://localhost:8081"));
+        System.out.println(keycloakSession.getContext().getUri().getQueryParameters());
+        return new RemoteUserStorageProvider(keycloakSession, componentModel, buildHttpClient("http://spring-backend:8090"));//http://spring-backend:8090
     }
 
     @Override
@@ -26,6 +27,7 @@ public class RemoteUserStorageProviderFactory implements UserStorageProviderFact
         ResteasyClient client = new ResteasyClientBuilder().build();
         ResteasyWebTarget target = client.target(uri);
 
+        System.out.println("buildHttpClient");
         return target.proxyBuilder(UserApiService.class)
                 .classloader(UserApiService.class.getClassLoader()).build();
 

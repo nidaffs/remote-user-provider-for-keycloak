@@ -4,16 +4,18 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/verify")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+//@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 public interface UserApiService {
 
     @GET
-    @Path("/{login}")
-    AdministratorDto getAdmin(@PathParam("login") String login);
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{username}")
+    AdministratorDto getAdmin(@PathParam("username") String username);
 
     @POST
-    @Path("/{login}")
-    boolean verifyAdministratorPassword(@PathParam("login") String login, String password);
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{username}/password")
+    boolean verifyAdministratorPassword(@PathParam("username") String username, String password);
 
 }

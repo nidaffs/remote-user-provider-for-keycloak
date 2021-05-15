@@ -11,7 +11,7 @@ public class AdministratorDto {
     private String surname;
     private String phone;
     private String skype;
-    private Role role;
+    private String role;
 
     public Long getId() {
         return id;
@@ -77,11 +77,11 @@ public class AdministratorDto {
         this.skype = skype;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

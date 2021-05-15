@@ -1,7 +1,14 @@
 
-]	java:S125n"<This block of commented-out lines of code should be removed.(Ñ÷¿Àûÿÿÿÿ8³›‘/
+U	java:S106;"9Replace this use of System.out or System.err by a logger.(†„…Ô8­ãİ´–/
+X	java:S125i"<This block of commented-out lines of code should be removed.(˜ĞÚÌ8¼øê“/
+Z	java:S106q"9Replace this use of System.out or System.err by a logger.(­ ‘ˆüÿÿÿÿ8¨İØ‹–/
+U	java:S106w"9Replace this use of System.out or System.err by a logger.(©´‡™8öËÀ“/
 œ
-java:S1186$"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—µ±şıÿÿÿÿ
-X	java:S125v"<This block of commented-out lines of code should be removed.(˜ĞÚÌ8ÍÿŒ‘/
-
-java:S1128"]Remove this unused import 'org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage'.(£°¨ÿÿÿÿÿ8ÿÖ†‘/
+java:S1186#"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(—µ±şıÿÿÿÿ
+Z	java:S106:"9Replace this use of System.out or System.err by a logger.(‚¨µúÿÿÿÿ8”«¥–/
+Z	java:S106Q"9Replace this use of System.out or System.err by a logger.(Ùæó¶üÿÿÿÿ8¡÷®¥–/
+Z	java:S106\"9Replace this use of System.out or System.err by a logger.(¿Üéıÿÿÿÿ8ÙåÛ‹–/
+Z	java:S106p"9Replace this use of System.out or System.err by a logger.(İ Ÿ›üÿÿÿÿ8‡±×‹–/
+X	java:S125}"<This block of commented-out lines of code should be removed.(â„ô8¡” ê“/
+Z	java:S106("9Replace this use of System.out or System.err by a logger.(“‡ŞÁùÿÿÿÿ8‡Àë¥–/
+U	java:S106x"9Replace this use of System.out or System.err by a logger.(¥¹³ë8•ÇÚ‹–/
