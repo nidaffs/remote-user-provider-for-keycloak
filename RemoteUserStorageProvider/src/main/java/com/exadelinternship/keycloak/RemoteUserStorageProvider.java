@@ -10,6 +10,7 @@ import org.keycloak.models.RoleModel;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.credential.PasswordCredentialModel;
 import org.keycloak.models.utils.DefaultRoles;
+import org.keycloak.storage.StorageId;
 import org.keycloak.storage.UserStorageProvider;
 import org.keycloak.storage.adapter.AbstractUserAdapter;
 import org.keycloak.storage.user.UserLookupProvider;
@@ -54,6 +55,7 @@ public class RemoteUserStorageProvider implements UserStorageProvider,
 
     @Override
     public boolean isValid(RealmModel realm, UserModel userModel, CredentialInput credentialInput) {
+        System.out.println(userModel.getUsername());
         boolean valid = userService.verifyAdministratorPassword(userModel.getUsername(), credentialInput.getChallengeResponse());
         System.out.println(valid);
         System.out.println(userModel.getUsername());
@@ -62,7 +64,10 @@ public class RemoteUserStorageProvider implements UserStorageProvider,
 
     @Override
     public UserModel getUserById(String id, RealmModel realm) {
-        return null;
+        StorageId storageId = new StorageId(id);
+        String username = storageId.getExternalId();
+
+        return getUserByUsername(username, realm);
     }
 
     @Override
@@ -79,6 +84,7 @@ public class RemoteUserStorageProvider implements UserStorageProvider,
             returnValue = createUserModel(username, realm);
         }
         System.out.println("getUserByUsername");
+        System.out.println(username);
         return returnValue;
 
     }
@@ -89,23 +95,16 @@ public class RemoteUserStorageProvider implements UserStorageProvider,
 
             @Override
             public Set<RoleModel> getRoleMappings() {
-                System.out.println("enter in getRoleMappings");
+                System.out.println("enter in getRoleMappings long");
                 Set<RoleModel> rolesToAssign = new HashSet<>();
-                if (super.appendDefaultRolesToRoleMappings()) {
-                    rolesToAssign.addAll(DefaultRoles.getDefaultRoles(realm).collect(Collectors.toSet()));
-                }
-                rolesToAssign.addAll(super.getRoleMappingsInternal());
+                System.out.println(userService.getAdmin(username));
+                System.out.println(userService.getAdmin(username).getRoles());
+                System.out.println(realm.getRole("SUPERADMIN"));
 
-                rolesToAssign.add(realm.getRole(userService.getAdmin(username).getRole()));
+                userService.getAdmin(username).getRoles().stream().forEach(role -> rolesToAssign.add(realm.getRole(role)));
 
                 return rolesToAssign;
             }
-
-            /*@Override
-            public Set<RoleModel> getRoleMappings() {
-                System.out.println("enter in getRoleMappings");
-                return getRoleMappingsStream().collect(Collectors.toSet());
-            }*/
 
             @Override
             public String getUsername() {
@@ -120,11 +119,6 @@ public class RemoteUserStorageProvider implements UserStorageProvider,
                 System.out.println(userService.getAdmin(username).getEmail());
                 return userService.getAdmin(username).getEmail();
             }
-
-            /*@Override
-            public String getFirstName() {
-                return userService.getAdmin(login).getRole();
-            }*/
 
         };
     }

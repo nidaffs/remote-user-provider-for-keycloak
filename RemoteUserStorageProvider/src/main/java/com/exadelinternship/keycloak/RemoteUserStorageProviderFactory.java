@@ -9,7 +9,7 @@ import org.keycloak.storage.UserStorageProviderFactory;
 
 public class RemoteUserStorageProviderFactory implements UserStorageProviderFactory<RemoteUserStorageProvider> {
 
-    public static final String PROVIDER_NAME = "username-90";
+    public static final String PROVIDER_NAME = "remote-provider-90";
 
     @Override
     public RemoteUserStorageProvider create(KeycloakSession keycloakSession, ComponentModel componentModel) {

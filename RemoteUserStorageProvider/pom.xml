@@ -59,7 +59,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>username-90</finalName>
+		<finalName>remote-provider-90</finalName>
 		<!--<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

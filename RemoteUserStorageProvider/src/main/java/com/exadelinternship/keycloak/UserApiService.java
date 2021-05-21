@@ -16,6 +16,6 @@ public interface UserApiService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}/password")
-    boolean verifyAdministratorPassword(@PathParam("username") String username, String password);
+    Boolean verifyAdministratorPassword(@PathParam("username") String username, String password);
 
 }
